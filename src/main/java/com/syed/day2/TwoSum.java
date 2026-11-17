@@ -2,6 +2,7 @@ package com.syed.day2;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Given an integer array and an integer target
@@ -46,14 +47,15 @@ public class TwoSum {
      * @return the indices of the nums which adds up to the target
      *
      */
+
     private static int[] optimized(int[] nums, int target){
-        HashMap<Integer, Integer> cMap = new HashMap<>();
+        Map<Integer, Integer> cMap = new HashMap<>();
         for(int i=0; i<nums.length; i++) {
-            if(!cMap.containsKey(nums[i])) {
-                cMap.put(target-nums[i],i);
-            } else {
-                return new int[]{cMap.get(nums[i]),i};
+            int complement = target-nums[i];
+            if (cMap.containsKey(complement)) {
+                return new int[]{cMap.get(complement),i};
             }
+            cMap.put(nums[i],i);
         }
         return new int[]{};
     }
@@ -64,5 +66,6 @@ public class TwoSum {
 
         System.out.println(Arrays.toString(optimized(new int[]{4, 5, 1, 7, 2}, 3)));
         System.out.println(Arrays.toString(optimized(new int[]{2,3,4,6,7}, 7)));
+
     }
 }
