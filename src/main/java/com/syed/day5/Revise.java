@@ -33,6 +33,39 @@ public class Revise {
         return maxProfit;
     }
 
+    private static String productOfArrayExceptSelf1(int[] nums) {
+        int[] resultArray = new int[nums.length];
+        int[] prefixArray = new int[nums.length];
+        int[] suffixArray = new int[nums.length];
+        prefixArray[0] = 1;
+        for (int i = 1; i< nums.length; i ++) {
+            prefixArray[i] = prefixArray[i-1] * nums[i-1];
+        }
+        suffixArray[nums.length-1] = 1;
+        for (int i = nums.length-2; i >=0 ; i--) {
+            suffixArray[i] = suffixArray[i+1] * nums[i+1];
+        }
+        for (int i = 0; i < nums.length; i++) {
+            resultArray[i] = prefixArray[i] * suffixArray[i];
+        }
+        return Arrays.toString(resultArray);
+    }
+
+    private static String productOfArrayExceptSelf2(int[] nums) {
+        int[] resultArray = new int[nums.length];
+        int prefixProduct = 1;
+        for (int i = 0; i < nums.length; i++) {
+            resultArray[i] = prefixProduct;
+            prefixProduct*=nums[i];
+        }
+        int suffixProduct = 1;
+        for (int i = nums.length -1; i >= 0; i--) {
+            resultArray[i] *= suffixProduct;
+            suffixProduct*=nums[i];
+        }
+        return Arrays.toString(resultArray);
+    }
+
     public static void main(String[] a) {
         // two sum
         int[] input1 = {2,4,5,6,8,9};
@@ -50,5 +83,9 @@ public class Revise {
         int[] stockPrices2 = {7,6,5,4,3,2,1};
         System.out.println(buySellStock(stockPrices1));
         System.out.println(buySellStock(stockPrices2));
+
+        // product of array element except self
+        System.out.println(productOfArrayExceptSelf1(new int[] {1,2,3,4}));
+        System.out.println(productOfArrayExceptSelf2(new int[] {1,2,3,4}));
     }
 }
