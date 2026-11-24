@@ -22,7 +22,24 @@ public class ProductOfArrayEx {
         return Arrays.toString(resultArray);
     }
 
+    private static String optimalProductExceptSelf(int[] nums) {
+        int[] result = new int[nums.length];
+        int prefixProduct = 1;
+        int suffixProduct = 1;
+        for (int i = 0; i < nums.length; i++) {
+            result[i] = prefixProduct;
+            prefixProduct *= nums[i];
+        }
+        for (int i = nums.length-1; i >=0 ; i--) {
+            result[i] *= suffixProduct;
+            suffixProduct *= nums[i];
+        }
+        return Arrays.toString(result);
+    }
+
+
     public static void main(String[] a) {
         System.out.println(productExceptSelf(new int[] {1,2,3,4}));
+        System.out.println(optimalProductExceptSelf(new int[] {1,2,3,4}));
     }
 }
